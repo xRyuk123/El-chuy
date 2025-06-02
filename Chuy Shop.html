@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChuyShop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(to right, #f7f7f7, #e2e2e2);
+      color: #333;
+    }
+    header {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    header p {
+      font-style: italic;
+      color: #bbb;
+      margin: 0.5rem 0 0;
+    }
+
+    .cart-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    .cart {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 1rem;
+      background: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 280px;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+      padding: 1rem;
+      z-index: 999;
+    }
+
+    .cart.show {
+      display: block;
+    }
+
+    .cart h3 {
+      margin-top: 0;
+    }
+
+    .cart ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .cart ul li {
+      border-bottom: 1px solid #ddd;
+      padding: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .remove-btn {
+      background: #e6005c;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+    }
+
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-content h3 {
+      margin-top: 0;
+      color: #1a1a1a;
+    }
+
+    .price {
+      color: #e6005c;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .add-to-cart {
+      background-color: #1a1a1a;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #1a1a1a;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ChuyShop</h1>
+    <p>Explora lo mejor y lo más único de Chuy</p>
+    <div class="cart-toggle" onclick="toggleCart()">
+      🛒 <span id="cart-count">0</span>
+    </div>
+    <div class="cart" id="cart">
+      <h3>Tu carrito</h3>
+      <ul id="cart-items">
+        <!-- Productos agregados aparecerán aquí -->
+      </ul>
+      <p><strong>Total:</strong> <span id="cart-total">0</span>$</p>
+    </div>
+  </header>
+
+  <section class="productos">
+    <div class="card">
+      <img src="img/ChuyCola.jpg" alt="ChuyCola">
+      <div class="card-content">
+        <h3>ChuyCola</h3>
+        <p class="price">50$</p>
+        <button class="add-to-cart" onclick="addToCart('ChuyCola', 50)">Agregar al carrito</button>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/chamarra.jpg" alt="Chamarra">
+      <div class="card-content">
+        <h3>Chamarra Tradicional Chuy</h3>
+        <p class="price">800$</p>
+        <button class="add-to-cart" onclick="addToCart('Chamarra Tradicional Chuy', 800)">Agregar al carrito</button>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/papos.jpg" alt="Tenis">
+      <div class="card-content">
+        <h3>Tenis bellakos de Chuy</h3>
+        <p class="price">1300$</p>
+        <button class="add-to-cart" onclick="addToCart('Tenis bellakos de Chuy', 1300)">Agregar al carrito</button>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img/Chuy fc.jpg" alt="Chuy Fc">
+      <div class="card-content">
+        <h3>Chuy Fc</h3>
+        <p class="price">500$</p>
+        <button class="add-to-cart" onclick="addToCart('Chuy Fc', 500)">Agregar al carrito</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 ChuyShop. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    let cartItems = [];
+
+    function addToCart(product, price) {
+      cartItems.push({ product, price });
+      updateCart();
+    }
+
+    function removeFromCart(index) {
+      cartItems.splice(index, 1);
+      updateCart();
+    }
+
+    function updateCart() {
+      const list = document.getElementById('cart-items');
+      const totalDisplay = document.getElementById('cart-total');
+      const countDisplay = document.getElementById('cart-count');
+
+      list.innerHTML = '';
+      let total = 0;
+
+      cartItems.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${item.product} - ${item.price}$
+          <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>
+        `;
+        list.appendChild(li);
+        total += item.price;
+      });
+
+      totalDisplay.textContent = total;
+      countDisplay.textContent = cartItems.length;
+    }
+
+    function toggleCart() {
+      const cart = document.getElementById('cart');
+      cart.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
